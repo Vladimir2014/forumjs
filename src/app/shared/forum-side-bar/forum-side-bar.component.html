@@ -1,0 +1,11 @@
+<div class="sidebar-view-forum">
+    <div style="color: black; font-weight: bold">Browse Forums</div>
+    <hr />
+    <span *ngFor="let forum of forums">
+        <span class="forum-text"><a routerLink="/view-forum/{{forum.id}}">{{forum.name}}</a></span>
+        <hr />
+    </span>
+    <div style="text-align: center" *ngIf="displayViewAll">
+        <a style="font-weight: bold" routerLink="/list-forums">View All</a>
+    </div>
+</div>
