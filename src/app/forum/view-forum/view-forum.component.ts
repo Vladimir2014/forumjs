@@ -10,7 +10,7 @@ import { ForumService } from '../forum.service';
 })
 export class ViewForumComponent implements OnInit {
   id: number;
-  forum: ForumModel;
+  forum = new ForumModel();
 
   constructor(private forumService: ForumService,
               private activateRoute: ActivatedRoute) {

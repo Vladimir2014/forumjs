@@ -14,8 +14,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   loginRequestPayload: LoginRequestPayload;
-  registerSuccessMessage: string;
+  registerSuccessMessage: string = '';
   isError: boolean;
+  invalidInput: boolean;
 
   constructor(private authService: AuthService,
               private activatedRoute: ActivatedRoute,
@@ -44,18 +45,24 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginRequestPayload.username = this.loginForm.get('username').value;
-    this.loginRequestPayload.password = this.loginForm.get('password').value;
 
-    this.authService.login(this.loginRequestPayload).subscribe(data => {
-      if (data) {
-        this.isError = false;
-        this.router.navigateByUrl('/');
-        this.toastrService.success('Login Successful');
-      } else {
-        this.isError = true;
-      }
-    });
+    if (this.loginForm.get('username').valid && this.loginForm.get('password').valid) {
+      this.invalidInput = false;
+      this.loginRequestPayload.username = this.loginForm.get('username').value;
+      this.loginRequestPayload.password = this.loginForm.get('password').value;
+    
+      this.authService.login(this.loginRequestPayload).subscribe(data => {
+        if (data) {
+          this.isError = false;
+          this.router.navigateByUrl('/');
+          this.toastrService.success('Login Successful');
+        } else {
+          this.isError = true;
+        }
+      });
+    } else {
+      this.invalidInput = true;
+    }
   }
 
 }
