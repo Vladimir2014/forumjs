@@ -15,6 +15,10 @@ export class ForumService {
     return this.http.get<Array<ForumModel>>('http://localhost:8081/api/forum');
   }
 
+  getForum(id: number): Observable<ForumModel> {
+    return this.http.get<ForumModel>('http://localhost:8081/api/forum/' + id);
+  }
+
   createForum(forumModel: ForumModel): Observable<ForumModel> {
     return this.http.post<ForumModel>('http://localhost:8081/api/forum', forumModel);
   }

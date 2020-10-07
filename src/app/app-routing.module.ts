@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'view-post/:id', component: ViewPostComponent },
   { path: 'view-forum/:id', component: ViewForumComponent },
   { path: 'user-profile/:name', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'list-forums', component: ListForumsComponent },
+  { path: 'forums', component: ListForumsComponent },
   { path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard] },
   { path: 'create-forum', component: CreateForumComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },

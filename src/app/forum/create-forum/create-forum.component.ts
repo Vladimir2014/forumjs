@@ -38,7 +38,7 @@ export class CreateForumComponent implements OnInit {
     this.forumModel.name = this.createForumForm.get('title').value;
     this.forumModel.description = this.createForumForm.get('description').value;
     this.forumService.createForum(this.forumModel).subscribe(data => {
-      this.router.navigateByUrl('/list-forums');
+      this.router.navigateByUrl('/forums');
     }, error => {
       throwError(error);
     })
