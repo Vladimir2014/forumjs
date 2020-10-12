@@ -13,7 +13,7 @@
                             <div class="col-md-6">
                                 <input type="text" [formControlName]="'email'" id="email_address" class="form-control" name="email-address" required autofocus>
                                 <span *ngIf="!signupForm.get('email').valid && invalidInput">
-                                    Please provide a valid email
+                                    Please provide a valid <strong>email</strong>
                                 </span>                                    
                             </div>
                         </div>
@@ -23,7 +23,7 @@
                             <div class="col-md-6">
                                 <input type="text" [formControlName]="'username'"class="form-control" required autofocus>
                                 <span *ngIf="!signupForm.get('username').valid && invalidInput">
-                                    Please provide a valid username
+                                    Please provide a valid <strong>username</strong>
                                 </span>                                 
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                             <div class="col-md-6">
                                 <input type="password" [formControlName]="'password'" id="password" class="form-control" name="password" required>
                                 <span *ngIf="!signupForm.get('password').valid && invalidInput">
-                                    Please provide a valid Password
+                                    Please provide a valid <strong>password</strong>
                                 </span>  
                             </div>
                         </div>
