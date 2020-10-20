@@ -28,6 +28,7 @@ import { UserProfileComponent } from './auth/user-profile/user-profile.component
 import { ArrowUpComponent } from './svg/arrow-up/arrow-up.component';
 import { ArrowDownComponent } from './svg/arrow-down/arrow-down.component';
 import { ViewForumComponent } from './forum/view-forum/view-forum.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ViewForumComponent } from './forum/view-forum/view-forum.component';
     ArrowUpComponent,
     ArrowDownComponent,
     ViewForumComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,

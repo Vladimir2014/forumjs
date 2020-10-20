@@ -31,12 +31,13 @@
                             <button type="submit" class="login">
                                 Login
                             </button>
-                            <span style="padding-left: 15px">New User? <a routerLink="/signup">Sign Up</a></span>
+                            <span style="padding-left: 15px; margin-right: 10px;">New User? <a routerLink="/signup">Sign Up</a></span>|
+                            <span style="padding-left: 10px"><a routerLink="/forgotpassword">Forgot Password?</a></span>
                         </span>   
-                        <div class="login-failed" *ngIf='this.isError'>
+                        <div class="message" *ngIf='this.isError'>
                              <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>   
                         </div>
-                        <div class="login-failed" [ngStyle]="{'background-color': 'green'}" *ngIf="this.registerSuccessMessage.length > 0">
+                        <div class="message" *ngIf="this.registerSuccessMessage.length > 0">
                             <p class="register-success-text">{{registerSuccessMessage}}</p>   
                        </div>                       
                     </form>

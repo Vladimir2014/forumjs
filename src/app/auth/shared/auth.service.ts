@@ -5,45 +5,54 @@ import { Observable, throwError } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginRequestPayload } from '../login/login.request.payload';
 import { LoginResponsePayload } from '../login/login.response.payload';
+import { VerifyPasswordResetCodeRequest } from '../forgot-password/verify-password-reset-code-request'
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  
   @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
   @Output() username: EventEmitter<string> = new EventEmitter();
-
+  
   refreshTokenPayload = {
     refreshToken: this.getRefreshToken(),
     username: this.getUserName()
   }
-
+  
   constructor(private httpClient: HttpClient,
     private localStorage: LocalStorageService) {
-  }
-
-  signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
-    return this.httpClient.post('http://localhost:8081/api/auth/signup', signupRequestPayload, { responseType: 'text' });
-  }
-
-  login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-    return this.httpClient.post<LoginResponsePayload>('http://localhost:8081/api/auth/login', loginRequestPayload)
+    }
+    
+    signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
+      return this.httpClient.post('http://localhost:8081/api/auth/signup', signupRequestPayload, { responseType: 'text' });
+    }
+    
+    login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
+      return this.httpClient.post<LoginResponsePayload>('http://localhost:8081/api/auth/login', loginRequestPayload)
     .pipe(map(data => {
         this.localStorage.store('authenticationToken', data.authenticationToken);
         this.localStorage.store('username', data.username);
         this.localStorage.store('refreshToken', data.refreshToken);
         this.localStorage.store('expiresAt', data.expiresAt);
-
+        
         this.loggedIn.emit(true);
         this.username.emit(data.username);
         return true;
       }));
-  }
+    }
+    
+    sendCode(username: String): Observable<any> {
+      return this.httpClient.post('http://localhost:8081/api/auth/code/send', username, { responseType: 'text' });
+    }
 
-  getJwtToken() {
-    return this.localStorage.retrieve('authenticationToken');
+    validateCode(validateCodeRequest: VerifyPasswordResetCodeRequest) {
+      return this.httpClient.post('http://localhost:8081/api/auth/code/verify', validateCodeRequest, { responseType: 'text' });
+    }
+    
+    getJwtToken() {
+      return this.localStorage.retrieve('authenticationToken');
   }
 
   refreshToken() {
