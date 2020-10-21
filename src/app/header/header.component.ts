@@ -20,6 +20,18 @@ export class HeaderComponent implements OnInit {
     this.username = this.authService.getUserName();
   }
 
+  search() {
+
+  }
+
+  goToCreatePost() {
+    this.router.navigateByUrl('/create-post');
+  }
+
+  goToCreateForum() {
+    this.router.navigateByUrl('/create-forum');
+  }
+
   goToUserProfile() {
     this.router.navigateByUrl('/user-profile/' + this.username);
   }

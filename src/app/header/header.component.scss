@@ -1,3 +1,5 @@
+@import '../../vars.scss';
+
 header{
     border-radius: 1px solid;
 }
@@ -14,13 +16,15 @@ header{
 }
 .logo{
     text-decoration: none;
+    color: $secondary_color;
+    fill: $secondary_color;
 }
 
 .login, .sign-up{    
     background-color: transparent;
-    border-color: #0079D3;
-    color: #0079D3;
-    fill: #0079D3;
+    border-color: $secondary_color;
+    color: $secondary_color;
+    fill: $secondary_color;
     border: 1px solid;
     border-radius: 4px;
     box-sizing: border-box;
@@ -37,8 +41,8 @@ header{
 }
 
 .sign-up{
-    background-color: #0079D3;
-    border-color: #0079D3;
+    background-color: $secondary_color;
+    border-color: $secondary_color;
     color: aliceblue;
 }
 
@@ -48,9 +52,9 @@ header{
 
 .userdetails{    
     background-color: transparent;
-    border-color: #0079D3;
-    color: #0079D3;
-    fill: #0079D3;
+    border-color: $secondary_color;
+    color: $secondary_color;
+    fill: $secondary_color;
     border: 1px solid;
     border-radius: 4px;
     box-sizing: border-box;
@@ -81,7 +85,7 @@ header{
 }
 
 .dropdown-item:hover{
-    background-color: #0079D3;
+    background-color: $secondary_color;
     color: white;
 }
 
@@ -90,9 +94,6 @@ header{
 }
 
 .account-icon{
-    border-radius: 4px;
-    float: left;
     margin-right: 5px;
-    max-height: 24px;
-    max-width: 24px;
+    fill: #777; 
 }

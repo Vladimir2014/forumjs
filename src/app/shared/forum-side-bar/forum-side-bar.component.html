@@ -1,6 +1,7 @@
 <div class="sidebar-view-forum">
     <div style="color: black; font-weight: bold">Browse Forums</div>
     <hr />
+    <div *ngIf="!forums || 0 === forums.length" class="not-found">No Forums Found</div>
     <span *ngFor="let forum of forums">
         <span class="forum-text"><a routerLink="/view-forum/{{forum.id}}">{{forum.name}}</a></span>
         <hr />

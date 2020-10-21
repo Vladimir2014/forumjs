@@ -1,7 +1,16 @@
 <div class="container">
         <div class="row">
           <hr />
-          <div class="create-post-container col-md-9">
+          <div *ngIf="!forums || 0 === forums.length" style="width: 100%;">
+            <div class="not_found"> 
+              No Forums found
+            </div>
+            <div>
+              You need at least one forum to create a post<br/>
+              You can  <a aria-label="Home" class="logo" routerLink="/create-forum">create a forum</a> and then add a new post to it
+            </div>
+          </div>
+          <div *ngIf="forums && 0 < forums.length" class="create-post-container col-md-9">
             <form class="post-form" [formGroup]="createPostForm" (ngSubmit)="createPost()">
               <div class="form-group">
                 <div class="create-post-heading">Create Post</div>

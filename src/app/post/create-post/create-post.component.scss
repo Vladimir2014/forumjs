@@ -1,3 +1,5 @@
+@import '../../../vars.scss';
+
 .btnCreatePost,
 .btnCreateForum {
   margin-top: 5px;
@@ -26,7 +28,7 @@
 }
 
 .btnDiscard {
-    fill: #0079D3;
+    fill: $secondary_color;
     border: 1px solid;
     border-radius: 4px;
     text-align: center;
@@ -42,7 +44,7 @@
     width: 288px;
     height: 34px;
     margin-top: 5px;
-    color: #0079D3;
+    color: $secondary_color;
     background-color: transparent;
   }
 
@@ -56,10 +58,10 @@
 }
 
 .btnCreatePost {
-    background-color: #0079D3;
-    border-color: #0079D3;
+    background-color: $secondary_color;
+    border-color: $secondary_color;
     color: aliceblue;
-    fill: #0079D3;
+    fill: $secondary_color;
     border: 1px solid;
     border-radius: 4px;
     text-align: center;
@@ -74,4 +76,12 @@
     opacity: 1;
     width: 288px;
     height: 34px;
+  }
+
+  .not_found {
+    text-align: center;
+    color: #777;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 100%;
   }
