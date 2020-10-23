@@ -30,6 +30,7 @@ import { ArrowDownComponent } from './svg/arrow-down/arrow-down.component';
 import { ViewForumComponent } from './forum/view-forum/view-forum.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { AvatarComponent } from './svg/avatar/avatar.component';
+import { SearchBoxComponent } from './widgets/search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AvatarComponent } from './svg/avatar/avatar.component';
     ViewForumComponent,
     ForgotPasswordComponent,
     AvatarComponent,
+    SearchBoxComponent,
   ],
   imports: [
     CommonModule,

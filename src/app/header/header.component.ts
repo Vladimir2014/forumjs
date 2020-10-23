@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit {
     this.username = this.authService.getUserName();
   }
 
-  search() {
-
+  search(val) {
+    console.log('val:', val);
   }
 
   goToCreatePost() {

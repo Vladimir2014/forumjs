@@ -1,0 +1,21 @@
+button {
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    font-size: initial;
+    border-left: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+button:hover {
+    background-color:aliceblue;
+}
+
+input {
+    border-right: none;
+    vertical-align: top;
+    height: 34px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
