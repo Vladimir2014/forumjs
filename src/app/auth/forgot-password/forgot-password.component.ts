@@ -53,7 +53,7 @@ export class ForgotPasswordComponent implements OnInit {
       if (params.username) {
         this.username = params.username;
       }
-    })
+    });
   }
 
   sendCode() {
