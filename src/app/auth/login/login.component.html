@@ -11,7 +11,7 @@
                             <div class="col-md-6">
                                 <input type="text" id="user_name" class="form-control" [formControlName]="'username'" name="user_name" required
                                     autofocus>
-                                <span *ngIf="invalidInput && !loginForm.get('username').valid">
+                                <span class="user-input-error" *ngIf="invalidInput && !loginForm.get('username').valid">
                                    Please provide a valid username
                                 </span>                                    
                             </div>
@@ -21,7 +21,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                             <div class="col-md-6">
                                 <input type="password" id="password" class="form-control" [formControlName]="'password'" name="password" required>
-                                <span *ngIf="invalidInput && !loginForm.get('password').valid">
+                                <span class="user-input-error" *ngIf="invalidInput && !loginForm.get('password').valid">
                                   Password cannot be empty
                                 </span>                                
                             </div>

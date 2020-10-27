@@ -13,6 +13,7 @@ import { VerifyPasswordResetCodeRequest } from './verify-password-reset-code-req
 })
 export class ForgotPasswordComponent implements OnInit {
   username: string;
+  usernameForm: FormGroup;
   forgotPasswordForm: FormGroup;
   validateCodeForm: FormGroup;
   resetPasswordRequest: ResetPasswordRequest;
@@ -40,6 +41,10 @@ export class ForgotPasswordComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.usernameForm = new FormGroup({
+      username: new FormControl('', Validators.required),
+    });
+
     this.forgotPasswordForm = new FormGroup({
       code: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -56,25 +61,37 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
 
+  setUsername(event) {
+    this.username = this.usernameForm.get('username').value;
+    this.sendCode();
+  }
+
   sendCode() {
-    this.errorMessage = '';
-    this.authService.sendCode(this.username).subscribe(
-      data => {
-        if (data) {
-          this.isError = false;
-          this.toastrService.success('Code has been sent');
-        } else {
+    if (!this.username) {
+      this.invalidInput = true;
+      this.errorMessage = 'Invalid username';
+
+    } else {
+      this.invalidInput = false;
+      this.errorMessage = '';
+      this.authService.sendCode(this.username).subscribe(
+        data => {
+          if (data) {
+            this.isError = false;
+            this.toastrService.success('Code has been sent');
+          } else {
+            this.isError = true;
+            console.log('err', data);
+            this.errorMessage = 'Cannot send verification code at this time. Please try again later';
+          }
+        },
+        err => { 
           this.isError = true;
-          console.log('err', data);
+          console.log(err);
           this.errorMessage = 'Cannot send verification code at this time. Please try again later';
         }
-      },
-      err => { 
-        this.isError = true;
-        console.log(err);
-        this.errorMessage = 'Cannot send verification code at this time. Please try again later';
-      }
-    );
+      );
+    }
   }
 
   validateCode() {
