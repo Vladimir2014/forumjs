@@ -18,3 +18,39 @@
     ]
   }
 }
+
+// {
+//   "angularCompilerOptions": {
+//       "enableIvy": false,
+//       "fullTemplateTypeCheck": true,
+//       "preserveWhitespaces": false,
+//       "strictInjectionParameters": true
+//   },
+//   "compilerOptions": {
+//       "baseUrl": "src",
+//       "emitDecoratorMetadata": true,
+//       "esModuleInterop": true,
+//       "module": "esnext",
+//       "noImplicitAny": true,
+//       "paths": {
+//           "@app/*": [
+//               "app/*"
+//           ],
+//           "@common/*": [
+//               "modules/app-common/*"
+//           ],
+//           "@modules/*": [
+//               "modules/*"
+//           ],
+//           "@testing/*": [
+//               "testing/*"
+//           ]
+//       },
+//       "resolveJsonModule": true,
+//       "strict": true,
+//       "typeRoots": [
+//           "node_modules/@types",
+//           "src/typings"
+//       ]
+//   }
+// }
