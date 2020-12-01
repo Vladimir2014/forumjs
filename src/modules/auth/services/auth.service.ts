@@ -81,9 +81,9 @@ export class AuthService {
         throwError(error);
       })
       this.localStorage.clear('authenticationToken');
-    this.localStorage.clear('username');
-    this.localStorage.clear('refreshToken');
-    this.localStorage.clear('expiresAt');
+      this.localStorage.clear('username');
+      this.localStorage.clear('refreshToken');
+      this.localStorage.clear('expiresAt');
   }
 
   getUserName() {

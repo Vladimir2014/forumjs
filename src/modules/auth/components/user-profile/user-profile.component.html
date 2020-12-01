@@ -18,7 +18,7 @@
     <div *ngFor="let comment of comments">
         <div class="comment">
             <div class="username">
-                <a routerLink="/user/{{comment.username}}">{{comment.userName}}</a>
+                <a routerLink="/auth/user/{{comment.username}}">{{comment.userName}}</a>
             </div>
             <div>
                 <p>{{comment.duration}}</p>

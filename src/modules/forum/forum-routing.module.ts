@@ -29,26 +29,26 @@ const ROUTES: Routes = [
           ],
         } as SBRouteData,
       },
- 
-      {
-        path: 'add',
-        canActivate: [AuthGuard],
-        component: forumComponents.CreateForumComponent,
-        data: {
-            title: 'Forum',
-            breadcrumbs: [
-                {
-                    text: 'Forum',
-                    link: '/forums',
-                },
-                {
-                    text: 'New',
-                    active: true,
-                },
-            ],
-        } as SBRouteData,
-      },
- 
+  
+  {
+    path: 'add',
+    canActivate: [AuthGuard],
+    component: forumComponents.CreateForumComponent,
+    data: {
+      title: 'Forum',
+      breadcrumbs: [
+        {
+          text: 'Forum',
+          link: '/forums',
+        },
+        {
+          text: 'New',
+          active: true,
+        },
+      ],
+    } as SBRouteData,
+  },
+  
       {
         path: ':id',
         canActivate: [],

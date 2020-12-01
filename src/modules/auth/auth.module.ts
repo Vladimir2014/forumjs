@@ -28,15 +28,17 @@ import * as authServices from './services';
 
 @NgModule({
     imports: [
+        CommonModule,
+        BrowserModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
         PostModule,
         NavigationModule,
-        NgxWebstorageModule.forRoot(),
-        ToastrModule.forRoot(),
-        EditorModule,
-        NgbModule,
+       NgxWebstorageModule.forRoot(),
+       ToastrModule.forRoot(),
+       EditorModule,
+       NgbModule,
     ],
     providers: [...authServices.services, ...authGuards.guards],
     declarations: [...authContainers.containers, ...authComponents.components],

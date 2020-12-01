@@ -1,4 +1,3 @@
-/* tslint:disable: ordered-imports*/
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SBRouteData } from 'src/modules/navigation/models';
@@ -17,11 +16,6 @@ import { AuthGuard } from './guards/auth.guard';
 
 /* Routes */
 export const ROUTES: Routes = [
-    // {
-    //     path: '',
-    //     pathMatch: 'full',
-    //     redirectTo: 'login',
-    // },
     {
         path: 'login',
         canActivate: [],
@@ -30,6 +24,7 @@ export const ROUTES: Routes = [
             title: 'Login',
         } as SBRouteData,
     },
+
     {
         path: 'register',
         canActivate: [],
@@ -38,26 +33,41 @@ export const ROUTES: Routes = [
             title: 'Register',
         } as SBRouteData,
     },
+
     {
-        path: 'forgot-password',
+        path: 'forgotpassword',
         canActivate: [],
         component: authComponents.ForgotPasswordComponent,
         data: {
             title: 'Forgot Password',
         } as SBRouteData,
     },
+
     {
-        path: 'user-profile',
+        path: 'user',
         canActivate: [AuthGuard],
         component: authComponents.UserProfileComponent,
         data: {
             title: 'User Profiles',
         } as SBRouteData,
     },
+    
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'login',
+    },
+
+    {
+        path: '**',
+        pathMatch: 'full',
+        loadChildren: () =>
+        import('src/modules/error/error-routing.module').then(m => m.ErrorRoutingModule)
+    },
 ];
 
 @NgModule({
-    imports: [AuthModule, RouterModule.forChild(ROUTES)],
+    imports: [RouterModule.forChild(ROUTES)],
     exports: [RouterModule],
 })
 export class AuthRoutingModule {}

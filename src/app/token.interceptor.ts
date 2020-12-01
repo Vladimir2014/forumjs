@@ -18,6 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log('intercepting: ', req);
         if (req.url.indexOf('refresh') !== -1 || req.url.indexOf('login') !== -1) {
+            console.log('intercepting1: ', req);
             return next.handle(req);
         }
 
@@ -27,12 +28,15 @@ export class TokenInterceptor implements HttpInterceptor {
             return next.handle(this.addToken(req, jwtToken)).pipe(catchError(error => {
                 if (error instanceof HttpErrorResponse
                     && error.status === 403) {
+                        console.log('intercepting2: ', req);
                     return this.handleAuthErrors(req, next);
                 } else {
+                    console.log('intercepting3: ', req);
                     return throwError(error);
                 }
             }));
         }
+        console.log('intercepting4: ', req);
         return next.handle(req);
     }
 

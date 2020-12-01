@@ -31,8 +31,8 @@
                             <button type="submit" class="login">
                                 Login
                             </button>
-                            <span style="padding-left: 15px; margin-right: 10px;">New User? <a routerLink="/signup">Sign Up</a></span>|
-                            <span style="padding-left: 10px"><a routerLink="/forgotpassword">Forgot Password?</a></span>
+                            <span style="padding-left: 15px; margin-right: 10px;">New User? <a routerLink="/auth/register">Sign Up</a></span>|
+                            <span style="padding-left: 10px"><a routerLink="/auth/forgotpassword">Forgot Password?</a></span>
                         </span>   
                         <div class="message" *ngIf='this.isError'>
                              <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>   
