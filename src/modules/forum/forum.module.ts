@@ -10,9 +10,13 @@ import * as forumComponents from './components';
 
 /* Modules */
 import { TablesModule } from '../tables/tables.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorForumComponent } from './components/error-forum/error-forum.component';
 
 @NgModule({
   imports: [
+    CommonModule,
+    BrowserModule,
     RouterModule,
     ReactiveFormsModule,
     AppCommonModule,
@@ -20,7 +24,7 @@ import { TablesModule } from '../tables/tables.module';
     FormsModule,
     TablesModule
   ],
-  declarations: [...forumComponents.components],
+  declarations: [...forumComponents.components, ErrorForumComponent],
   exports: [...forumComponents.components]
 
 })

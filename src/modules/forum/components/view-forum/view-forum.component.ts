@@ -1,6 +1,7 @@
+import { invalid } from '@angular/compiler/src/render3/view/util';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ForumModel } from '../../models/forum-response';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Forum } from '../../models/forum';
 import { ForumService } from '../../services/forum.service';
 
 @Component({
@@ -10,11 +11,18 @@ import { ForumService } from '../../services/forum.service';
 })
 export class ViewForumComponent implements OnInit {
   id: number;
-  forum = new ForumModel();
+  forum = new Forum();
 
   constructor(private forumService: ForumService,
-              private activateRoute: ActivatedRoute) {
+              private activateRoute: ActivatedRoute,
+              private router: Router) {
     this.id = this.activateRoute.snapshot.params.id;
+
+    if (!this.id || isNaN(this.id)) {
+      this.router.navigate(['invalid'], { relativeTo: this.activateRoute.parent });
+    } else {
+      this.router.navigate(['posts'], { relativeTo: this.activateRoute });
+    }
   }
   
   ngOnInit(): void {
@@ -22,7 +30,6 @@ export class ViewForumComponent implements OnInit {
   }
   
   private getForuById() {
-    console.log('id: ', this.id);
     this.forumService.getForum(this.id).subscribe(data => {
         this.forum = data;
     });

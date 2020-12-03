@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/modules/post/services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommentService } from 'src/modules/comment/services/comment.service';
-import { PostModel } from 'src/modules/post/models/post.model';
+import { Post } from 'src/modules/post/models/post';
 import { CommentPayload } from 'src/modules/comment/models/comment.payload';
 
 @Component({
@@ -12,7 +12,7 @@ import { CommentPayload } from 'src/modules/comment/models/comment.payload';
 })
 export class UserProfileComponent implements OnInit {
   name: string;
-  posts: PostModel[];
+  posts: Post[];
   comments: CommentPayload[];
   postLength: number;
   commentLength: number;

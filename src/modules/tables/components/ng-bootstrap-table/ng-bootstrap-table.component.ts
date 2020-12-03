@@ -27,6 +27,7 @@ export class NgBootstrapTableComponent implements OnInit {
     sortedColumn!: string;
     sortedDirection!: string;
     hideTableHead: false;
+    headerFields: any[];
 
     @ViewChildren(SBSortableHeaderDirective) headers!: QueryList<SBSortableHeaderDirective>;
 
@@ -39,6 +40,9 @@ export class NgBootstrapTableComponent implements OnInit {
         this.tableDataService.pageSize = this.pageSize;
         this.records$ = this.tableDataService.records$;
         this.total$ = this.tableDataService.total$;
+
+        this.headerFields = [{name: '1',}, 
+                            { name: '2'}];        
     }
 
     onSort({ column, direction }: SortEvent) {

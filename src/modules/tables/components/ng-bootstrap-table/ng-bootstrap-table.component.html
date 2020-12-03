@@ -5,11 +5,12 @@
     </div>
     <table class="table">
         <thead *ngIf="!hideTableHead">
-            <tr *ngFor="let headerField of headerFields">
-                <th scope="col" 
+            <tr>
+                <th  *ngFor="let headerField of headerFields"
+                    scope="col" 
                     [sbSortable]="headerField.name" 
                     (sort)="onSort($event)">
-                    <span>{{ headerField.text }}</span>
+                    <span>{{ headerField.name }}</span>
                     <sb-sort-icon *ngIf='sortedColumn === headerField.name' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
             </tr>

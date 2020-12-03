@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ForumModel } from '../../models/forum-response';
+import { Forum } from '../../models/forum';
 import { Router } from '@angular/router';
 import { ForumService } from '../../services/forum.service';
 import { throwError } from 'rxjs';
@@ -12,7 +12,7 @@ import { throwError } from 'rxjs';
 })
 export class CreateForumComponent {
   createForumForm: FormGroup;
-  forumModel: ForumModel;
+  forumModel: Forum;
   title = new FormControl('');
   description = new FormControl('');
 

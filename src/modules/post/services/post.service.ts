@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PostModel } from '../models/post.model';
+import { Post } from '../models/post';
 import { CreatePostPayload } from '../models/create.post.payload';
 
 @Injectable({
@@ -11,20 +11,24 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getAllPosts(): Observable<Array <PostModel>> {
-    return this.http.get<Array<PostModel>>('http://localhost:8081/api/posts');
+  getAllPosts(): Observable<Array <Post>> {
+    return this.http.get<Array<Post>>('http://localhost:8081/api/posts');
   }
 
   createPost(postPayload: CreatePostPayload): Observable<any> {
     return this.http.post('http://localhost:8081/api/posts/', postPayload);
   }
 
-  getPost(id: number): Observable<PostModel> {
+  getPost(id: number): Observable<Post> {
     console.log('-----> ', id);
-    return this.http.get<PostModel>('http://localhost:8081/api/posts/' + id);
+    return this.http.get<Post>('http://localhost:8081/api/posts/' + id);
   }
 
-  getAllPostsByUser(name: string): Observable<PostModel[]> {
-    return this.http.get<PostModel[]>('http://localhost:8081/api/posts/by-user/' + name);
+  getAllPostsForForum(forumId: number): Observable<Array <Post>> {
+    return this.http.get<Array<Post>>('http://localhost:8081/api/posts/by-forum/' + forumId);
+  }
+
+  getAllPostsByUser(name: string): Observable<Post[]> {
+    return this.http.get<Post[]>('http://localhost:8081/api/posts/by-user/' + name);
   }
 }

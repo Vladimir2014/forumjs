@@ -1,1 +1,6 @@
-<p>list-posts works!</p>
+<p>Posts</p>
+<ul *ngFor="let post of posts">
+    <li>{{post}}</li>
+</ul>
+<br/>
+<a routerLink="add">add new post</a>

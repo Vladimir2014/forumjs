@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumModel } from '../../models/forum-response';
+import { Forum } from '../../models/forum';
 import { ForumService } from '../../services/forum.service';
 import { throwError } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { throwError } from 'rxjs';
   styleUrls: ['./list-forums.component.scss']
 })
 export class ListForumsComponent implements OnInit {
-  forums: Array<ForumModel>;
+  forums: Array<Forum>;
   constructor(private forumService: ForumService) { }
 
   ngOnInit() {
@@ -19,4 +19,6 @@ export class ListForumsComponent implements OnInit {
       throwError(error);
     })
   }
+
+  //make table records
 }

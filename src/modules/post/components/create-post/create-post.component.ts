@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { ForumModel } from 'src/modules/forum/models/forum-response';
+import { Forum } from 'src/modules/forum/models/forum';
 import { Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { ForumService } from 'src/modules/forum/services/forum.service';
@@ -16,11 +16,12 @@ export class CreatePostComponent implements OnInit {
 
   createPostForm: FormGroup;
   postPayload: CreatePostPayload;
-  forums: Array<ForumModel>;
+  forums: Array<Forum>;
 
   constructor(private router: Router, 
               private postService: PostService,
               private forumService: ForumService) {
+                console.log('here');
     this.postPayload = {
       postName: '',
       url: '',

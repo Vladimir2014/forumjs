@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PostModel } from '../../../post/models/post.model';
+import { Post } from '../../../post/models/post';
 import { VotePayload } from '../../../vote/models/vote-payload';
 import { VoteType } from '../../models/vote-type';
 import { VoteService } from 'src/modules/vote/services/vote.service';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class VoteButtonComponent implements OnInit {
 
-  @Input() post: PostModel;
+  @Input() post: Post;
   votePayload: VotePayload;
   upvoteColor: string;
   downvoteColor: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService } from 'src/modules/forum/services/forum.service';
-import { ForumModel } from 'src/modules/forum/models/forum-response';
+import { Forum } from 'src/modules/forum/models/forum';
 
 @Component({
   selector: 'app-forum-side-bar',
@@ -8,7 +8,7 @@ import { ForumModel } from 'src/modules/forum/models/forum-response';
   styleUrls: ['./forum-side-bar.component.scss']
 })
 export class ForumSideBarComponent implements OnInit {
-  forums: Array<ForumModel> = [];
+  forums: Array<Forum> = [];
   displayViewAll: boolean;
 
   constructor(private forumService: ForumService) {

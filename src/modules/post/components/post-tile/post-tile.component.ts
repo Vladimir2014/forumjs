@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { PostModel } from 'src/modules/post/models/post.model';
+import { Post } from 'src/modules/post/models/post';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 })
 export class PostTileComponent {
 
-  @Input() posts: PostModel[];
+  @Input() posts: Post[];
 
   constructor(private router: Router) { }
 
   goToPost(id: number): void {
-    this.router.navigateByUrl('/view-post/' + id);
+    this.router.navigateByUrl('/posts/' + id);
   }
 }
