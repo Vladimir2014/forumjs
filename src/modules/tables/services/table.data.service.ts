@@ -34,7 +34,9 @@ function sort(records: TableRecord[], column: string, direction: string): TableR
 }
 
 function matches(record: TableRecord, term: string, pipe: PipeTransform) {
-    record.fields.forEach(field => {
+    if (!term || '' === term.trim()) return true;
+
+    return !!record.fields.find(field => {
         switch(field.type) {
             case Number:
                 return pipe.transform(field.value).includes(term);
@@ -44,8 +46,6 @@ function matches(record: TableRecord, term: string, pipe: PipeTransform) {
                 return false;
         }
     });
-        
-    return true;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -155,12 +155,11 @@ export class TableDataService {
     }
 
     private _search(): Observable<SearchResult> {
-        console.log('SEARCH');
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
-
+        
         // 1. sort
         let records = sort(this.records, sortColumn, sortDirection);
-
+        
         // 2. filter
         records = records.filter(record => matches(record, searchTerm, this.pipe));
         const total = records.length;
