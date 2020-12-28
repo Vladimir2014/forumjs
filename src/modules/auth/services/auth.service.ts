@@ -1,13 +1,14 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SignupRequestPayload } from '../models/signup-request.payload';
-import { Observable, throwError } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginRequestPayload } from '../models/login.request.payload';
 import { LoginResponsePayload } from '../models/login.response.payload';
 import { VerifyPasswordResetCodeRequest } from '../models/verify-password-reset-code-request'
 import { map, tap } from 'rxjs/operators';
 import { ResetPasswordRequest } from '../models/reset-password-request';
+import { UserDetails } from '../models/user.details';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,7 @@ export class AuthService {
   }
   
   constructor(private httpClient: HttpClient,
-    private localStorage: LocalStorageService) {
-    }
+              private localStorage: LocalStorageService) { }
     
     signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
       return this.httpClient.post('http://localhost:8081/api/auth/signup', signupRequestPayload, { responseType: 'text' });
@@ -58,6 +58,12 @@ export class AuthService {
     getJwtToken() {
       return this.localStorage.retrieve('authenticationToken');
     }
+
+    getCurrentUserDetails(): Observable<UserDetails> {
+        return this.isLoggedIn() 
+        ? this.httpClient.get<UserDetails>('http://localhost:8081/api/auth/user/details')
+        : null;
+    }
     
     refreshToken() {
       return this.httpClient.post<LoginResponsePayload>('http://localhost:8081/api/auth/refresh/token',
@@ -77,6 +83,8 @@ export class AuthService {
       { responseType: 'text' })
       .subscribe(data => {
         console.log(data);
+        this.loggedIn.emit(false);
+        this.username.emit(null);
       }, error => {
         throwError(error);
       })

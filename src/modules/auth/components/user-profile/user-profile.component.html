@@ -1,30 +1,27 @@
 <div class="container">
-    <div>
-        <br/>
-        Welcome <b>{{name}}</b>.<br/><br/> You have posted <b>{{postLength}}</b> time(s) and commented
-        <b>{{commentLength}}</b> time(s).
-        You can check your post and comment history below.
-    </div>
-    <hr />
-    <div>
-        Your Posts:
-    </div>
-    <app-post-tile [posts]="posts"></app-post-tile>
-    <hr />
-    <div>
-        Your Comments:
-    </div>
-    <div class="no-comments-text" *ngIf="!comments || 0 === comments.length">No comments found</div>
-    <div *ngFor="let comment of comments">
-        <div class="comment">
-            <div class="username">
-                <a routerLink="/auth/user/{{comment.username}}">{{comment.userName}}</a>
+    <div class="row justify-content-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center">
+                    <h4>{{ userDetails.username }}</h4>
+                </div>
+                <div class="card-body">
+                        <div class="form-group row">
+                            <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                            <label class="col-md-8 col-form-label text-md-left">
+                                 {{ userDetails.email }}                           
+                            </label>
+                        </div>
+    
+                        <span class="col-md-6 offset-md-4">
+                            <button type="button" class="sign-up" (click)="goBack()">
+                                Back
+                            </button>
+                        </span>
+                </div>
             </div>
-            <div>
-                <p>{{comment.duration}}</p>
-            </div>
-            <b>{{comment.text}}</b>
         </div>
-        <hr />
+        <div class="col-md-3"></div>
     </div>
 </div>

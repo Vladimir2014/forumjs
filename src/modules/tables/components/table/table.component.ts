@@ -8,19 +8,21 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { SBSortableHeaderDirective, SortEvent } from 'src/modules/tables/directives';
-import { TableRecord } from 'src/modules/tables/models';
+import { Field, TableRecord } from 'src/modules/tables/models';
 import { TableDataService } from 'src/modules/tables/services';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NgbDatepickerKeyboardService } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'sb-ng-bootstrap-table',
+    selector: 'ng-table',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './ng-bootstrap-table.component.html',
-    styleUrls: ['ng-bootstrap-table.component.scss'],
+    templateUrl: './table.component.html',
+    styleUrls: ['table.component.scss'],
 })
-export class NgBootstrapTableComponent implements OnInit {
-    @Input() pageSize = 4;
+export class TableComponent implements OnInit {
+    @Input() records: Subject<any>;
+    @Input() fields: Array<Field>;
+    @Input() pageSize = 5;
 
     records$!: Observable<TableRecord[]>;
     total$!: Observable<number>;
@@ -33,16 +35,17 @@ export class NgBootstrapTableComponent implements OnInit {
 
     constructor(
         public tableDataService: TableDataService,
-        private changeDetectorRef: ChangeDetectorRef
+        private changeDetectorRef: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
+        this.tableDataService.fields = this.fields;
         this.tableDataService.pageSize = this.pageSize;
         this.records$ = this.tableDataService.records$;
         this.total$ = this.tableDataService.total$;
-
-        this.headerFields = [{name: '1',}, 
-                            { name: '2'}];        
+        this.headerFields = this.fields;
+     
+        this.records.subscribe(data => this.tableDataService.setOriginalRecords(data));
     }
 
     onSort({ column, direction }: SortEvent) {

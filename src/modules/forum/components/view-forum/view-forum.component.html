@@ -1,28 +1,25 @@
-<sb-layout-dashboard>
-    <sb-dashboard-head title="Forum" [hideBreadcrumbs]="false"></sb-dashboard-head>
-    
-    <div class="container">
-        <div class="row">
-            <hr />
-            <div class="col-md-9">
-            <h2>{{forum.name}}</h2>
-            <div>
-                <p class="forum-text" [innerHtml]="forum.description"></p>
-            </div>
+<sb-dashboard-head title="Forum" [hideBreadcrumbs]="false"></sb-dashboard-head>
 
-            <section>
-                <router-outlet name="posts"></router-outlet>
-            </section>
-              
-            <ul>
-                <li *ngFor="let post of forum.posts">
-                    <a routerLink="posts/{{post.id}}">{{post.name}}</a>
-                </li>
-            </ul>
-            </div>
-            <div class="col-md-3">
-            </div>
+<div class="container">
+    <div class="row">
+        <hr />
+        <div class="col-md-9">
+        <h2>{{forum.name}}</h2>
+        <div>
+            <p class="forum-text" [innerHtml]="forum.description"></p>
+        </div>
+
+        <section>
+            <router-outlet name="posts"></router-outlet>
+        </section>
+            
+        <ul>
+            <li *ngFor="let post of forum.posts">
+                <a routerLink="posts/{{post.id}}">{{post.name}}</a>
+            </li>
+        </ul>
+        </div>
+        <div class="col-md-3">
         </div>
     </div>
-
-</sb-layout-dashboard>
+</div>

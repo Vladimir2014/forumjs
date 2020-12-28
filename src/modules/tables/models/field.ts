@@ -1,5 +1,8 @@
 export interface Field {
-    [key: string]: string | number;
+    key: string | number;
+    name: string;
     type: any;
-    value : any;
+    value?: any;
+    isHtml?: boolean;
+    formatter?: any,
 }

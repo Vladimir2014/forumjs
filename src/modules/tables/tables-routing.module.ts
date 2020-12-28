@@ -5,34 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 /* Module */
 import { TablesModule } from './tables.module';
 
-/* Containers */
-import * as tablesContainers from './containers';
-
 /* Guards */
 import * as tablesGuards from './guards';
 import { SBRouteData } from 'src/modules/navigation/models';
 
 /* Routes */
-export const ROUTES: Routes = [
-    {
-        path: '',
-        canActivate: [],
-        component: tablesContainers.TablesComponent,
-        data: {
-            title: 'Tables - SB Admin Angular',
-            breadcrumbs: [
-                {
-                    text: 'Dashboard',
-                    link: '/dashboard',
-                },
-                {
-                    text: 'Tables',
-                    active: true,
-                },
-            ],
-        } as SBRouteData,
-    },
-];
+export const ROUTES: Routes = [];
 
 @NgModule({
     imports: [TablesModule, RouterModule.forChild(ROUTES)],

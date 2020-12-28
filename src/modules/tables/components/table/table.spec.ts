@@ -1,15 +1,16 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DashboardCardsComponent } from './dashboard-cards.component';
+import { TableComponent } from './table.component';
 
 @Component({
     template: `
-        <sb-dashboard-cards
+        <sb-ng-bootstrap-table
             [someInput]="someInput"
             (someFunction)="someFunction($event)"
-        ></sb-dashboard-cards>
+        ></sb-ng-bootstrap-table>
     `,
 })
 class TestHostComponent {
@@ -17,21 +18,21 @@ class TestHostComponent {
     // someFunction(event: Event) {}
 }
 
-describe('DashboardCardsComponent', () => {
+describe('TableComponent', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let hostComponent: TestHostComponent;
     let hostComponentDE: DebugElement;
     let hostComponentNE: Element;
 
-    let component: DashboardCardsComponent;
+    let component: TableComponent;
     let componentDE: DebugElement;
     let componentNE: Element;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestHostComponent, DashboardCardsComponent],
+            declarations: [TestHostComponent, TableComponent],
             imports: [NoopAnimationsModule],
-            providers: [],
+            providers: [DecimalPipe],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
@@ -48,6 +49,6 @@ describe('DashboardCardsComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sb-dashboard-cards')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-table')).toEqual(jasmine.anything());
     });
 });

@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxWebstorageModule } from 'ngx-webstorage';
@@ -25,23 +23,23 @@ import * as authGuards from './guards';
 
 /* Services */
 import * as authServices from './services';
+import { UserActivityComponent } from './components/user-activity/user-activity.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        BrowserModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
         PostModule,
         NavigationModule,
-       NgxWebstorageModule.forRoot(),
-       ToastrModule.forRoot(),
-       EditorModule,
-       NgbModule,
+        NgxWebstorageModule.forRoot(),
+        ToastrModule.forRoot(),
+        EditorModule,
+        NgbModule,
     ],
     providers: [...authServices.services, ...authGuards.guards],
-    declarations: [...authContainers.containers, ...authComponents.components],
+    declarations: [...authContainers.containers, ...authComponents.components, UserActivityComponent],
     exports: [...authContainers.containers, ...authComponents.components],
 })
 export class AuthModule {}

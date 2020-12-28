@@ -11,9 +11,6 @@ import { NavigationModule } from 'src/modules/navigation/navigation.module';
 /* Components */
 import * as tablesComponents from './components';
 
-/* Containers */
-import * as tablesContainers from './containers';
-
 /* Directives */
 import * as tablesDirectives from './directives';
 
@@ -39,10 +36,9 @@ import * as tablesServices from './services';
         ...tablesDirectives.directives,
     ],
     declarations: [
-        ...tablesContainers.containers,
         ...tablesComponents.components,
         ...tablesDirectives.directives,
     ],
-    exports: [...tablesContainers.containers, ...tablesComponents.components],
+    exports: [ ...tablesComponents.components],
 })
 export class TablesModule {}

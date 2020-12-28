@@ -86,17 +86,12 @@ const ROUTES: Routes = [
       { path: 'posts',
         loadChildren: () => 
         import('src/modules/post/post-routing.module').then(m => m.PostRoutingModule),},
-        { path: 'posts/add',
+        
+      { path: 'posts/add',
         loadChildren: () => 
         import('src/modules/post/post-routing.module').then(m => m.PostRoutingModule),},
     ]
   },
-
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   redirectTo: '/forums',
-  // },
 
   { path: '**',
     pathMatch: 'full',

@@ -6,7 +6,7 @@
     <table class="table">
         <thead *ngIf="!hideTableHead">
             <tr>
-                <th  *ngFor="let headerField of headerFields"
+                <th *ngFor="let headerField of headerFields"
                     scope="col" 
                     [sbSortable]="headerField.name" 
                     (sort)="onSort($event)">
@@ -17,10 +17,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let record of records$ | async">
-                <td *ngFor="let field of record">
-                    <ngb-highlight [result]="field.value" 
+
+                <td *ngFor="let field of record.fields">
+                    <span *ngIf="!field.isHtml">{{ field.value }}</span>
+                    <span *ngIf="field.isHtml"  [innerHtml]="field.value | sanitizeHtml"></span>
+                    <!-- <dynamic-component *ngIf="field.isHtml"  [innerHtml]="field.value | sanitizeHtml"></dynamic-component> -->
+                    <!-- <ngb-highlight [result]="field.id" 
                                    [term]="tableDataService.searchTerm">
-                    </ngb-highlight>
+                    </ngb-highlight> -->
                 </td>
             </tr>
         </tbody>

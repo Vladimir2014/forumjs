@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Forum } from '../../models/forum';
 import { ForumService } from '../../services/forum.service';
-import { throwError } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
+import { Field } from 'src/modules/tables/models';
 
 @Component({
   selector: 'app-list-forums',
@@ -9,16 +10,33 @@ import { throwError } from 'rxjs';
   styleUrls: ['./list-forums.component.scss']
 })
 export class ListForumsComponent implements OnInit {
-  forums: Array<Forum>;
-  constructor(private forumService: ForumService) { }
+  forums: Subject<Array<Forum>> = new Subject();
+  fields: Field[] = this.defineTableFields();
+
+  constructor(private forumService: ForumService) {}
 
   ngOnInit() {
     this.forumService.getAllForums().subscribe(data => {
-      this.forums = data;
+      this.forums.next(data);
     }, error => {
       throwError(error);
     })
   }
 
-  //make table records
+  private defineTableFields() : Field[] {
+    return [
+      { type: String,
+        name: 'Name',
+        key: 'name',
+      },
+      { type: String,
+        name: 'Description',
+        key: 'description'
+      },
+      { type: Number,
+        name: 'Posts',
+        key: 'numberOfPosts'
+      },
+    ];
+  }
 }

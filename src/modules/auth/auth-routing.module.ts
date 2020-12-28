@@ -44,13 +44,32 @@ export const ROUTES: Routes = [
     },
 
     {
-        path: 'user',
+        path: 'user/settings',
+        canActivate: [AuthGuard],
+        component: authComponents.UserProfileComponent,
+        data: {
+            title: 'User Settings',
+        } as SBRouteData,
+    },
+
+    {
+        path: 'user/activity',
+        canActivate: [AuthGuard],
+        component: authComponents.UserProfileComponent,
+        data: {
+            title: 'User Settings',
+        } as SBRouteData,
+    },
+
+    {
+        path: 'user/:?',
         canActivate: [AuthGuard],
         component: authComponents.UserProfileComponent,
         data: {
             title: 'User Profiles',
         } as SBRouteData,
     },
+
     
     {
         path: '',

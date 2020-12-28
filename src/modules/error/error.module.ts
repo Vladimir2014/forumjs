@@ -22,6 +22,7 @@ import * as errorServices from './services';
 
 @NgModule({
     imports: [
+        CommonModule,
         RouterModule,
         ReactiveFormsModule,
         FormsModule,

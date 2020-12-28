@@ -1,8 +1,7 @@
 import { DecimalPipe } from '@angular/common';
 import { Injectable, PipeTransform } from '@angular/core';
-import { COUNTRIES } from 'src/modules/tables/data/countries';
 import { SortDirection } from 'src/modules/tables/directives';
-import { TableRecord } from 'src/modules/tables/models';
+import { Field, TableRecord } from 'src/modules/tables/models';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 
@@ -35,15 +34,26 @@ function sort(records: TableRecord[], column: string, direction: string): TableR
 }
 
 function matches(record: TableRecord, term: string, pipe: PipeTransform) {
-    return ( //TODO: fix fields
-        record.name.toLowerCase().includes(term.toLowerCase()) ||
-        pipe.transform(record.area).includes(term) ||
-        pipe.transform(record.population).includes(term)
-    );
+    record.fields.forEach(field => {
+        switch(field.type) {
+            case Number:
+                return pipe.transform(field.value).includes(term);
+            case String:
+                return field.value.includes(term);  
+            default:
+                return false;
+        }
+    });
+        
+    return true;
 }
 
 @Injectable({ providedIn: 'root' })
 export class TableDataService {
+    fields: Array<Field>;
+
+    private records = [];
+
     private _loading$ = new BehaviorSubject<boolean>(true);
     private _search$ = new Subject<void>();
     private _records$ = new BehaviorSubject<TableRecord[]>([]);
@@ -58,12 +68,13 @@ export class TableDataService {
     };
 
     constructor(private pipe: DecimalPipe) {
+
         this._search$
             .pipe(
                 tap(() => this._loading$.next(true)),
                 debounceTime(120),
                 switchMap(() => this._search()),
-                delay(120),
+                delay(1200),
                 tap(() => this._loading$.next(false))
             )
             .subscribe(result => {
@@ -72,6 +83,36 @@ export class TableDataService {
             });
 
         this._search$.next();
+    }
+
+    setOriginalRecords(records) {
+        this.records = this.parseOriginalRecords(records);
+        this._records$.next(this.records);
+    }
+
+    private parseOriginalRecords(records): TableRecord[] {
+        let newRecords: TableRecord[] = [];
+
+        if (this.fields) {
+            records.forEach(record => {
+
+                let recordFields: Field[] = [];
+
+                this.fields.forEach(field => {
+                    recordFields.push( { key: field.key,
+                                         name: field.name,
+                                         type: field.type,
+                                         isHtml: field.isHtml,
+                                         value: field.formatter ? field.formatter(record) : record[field.key] });
+                });
+
+                newRecords.push({ fields: recordFields });
+            });
+        }
+
+        console.log('RECORDS: ', records, 'TO:', newRecords);
+
+        return newRecords;
     }
 
     get records$() {
@@ -114,13 +155,14 @@ export class TableDataService {
     }
 
     private _search(): Observable<SearchResult> {
+        console.log('SEARCH');
         const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
         // 1. sort
-        let records = sort(COUNTRIES, sortColumn, sortDirection);
+        let records = sort(this.records, sortColumn, sortDirection);
 
         // 2. filter
-        records = records.filter(country => matches(country, searchTerm, this.pipe));
+        records = records.filter(record => matches(record, searchTerm, this.pipe));
         const total = records.length;
 
         // 3. paginate

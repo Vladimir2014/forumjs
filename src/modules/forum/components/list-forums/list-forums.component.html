@@ -1,26 +1,8 @@
-<sb-layout-dashboard>
+<div>
     <sb-dashboard-head title="Forums" [hideBreadcrumbs]="false"></sb-dashboard-head>
-    
     <sb-card>
         <div class="card-body">
-            <sb-ng-bootstrap-table [pageSize]="4"></sb-ng-bootstrap-table>
+            <ng-table [records]="forums" [fields]="fields"></ng-table>
         </div>
     </sb-card>
-    <!-- <div class="container">
-        <div class="row">
-            <hr />
-            <div class="col-md-9">
-            <h2>List of Forums</h2>
-            <ul>
-                <li *ngFor="let forum of forums">
-                    <a routerLink="/view-forum/{{forum.id}}">{{forum.name}}</a>
-                </li>
-            </ul>
-            </div>
-            <div class="col-md-3">
-             <app-side-bar></app-side-bar> 
-            </div>
-        </div>
-    </div> -->
-   
-</sb-layout-dashboard>
+</div>

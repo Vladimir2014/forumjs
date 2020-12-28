@@ -1,37 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { PostService } from 'src/modules/post/services/post.service';
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CommentService } from 'src/modules/comment/services/comment.service';
-import { Post } from 'src/modules/post/models/post';
-import { CommentPayload } from 'src/modules/comment/models/comment.payload';
+import { UserDetails } from '../../models/user.details';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
-  name: string;
-  posts: Post[];
-  comments: CommentPayload[];
-  postLength: number;
-  commentLength: number;
+export class UserProfileComponent {
 
-  constructor(private activatedRoute: ActivatedRoute, private postService: PostService,
-    private commentService: CommentService) {
-    this.name = this.activatedRoute.snapshot.params.name;
+  userDetails: UserDetails = {};
 
-    this.postService.getAllPostsByUser(this.name).subscribe(data => {
-      this.posts = data;
-      this.postLength = data.length;
-    });
-    this.commentService.getAllCommentsByUser(this.name).subscribe(data => {
-      this.comments = data;
-      this.commentLength = data.length;
-    });
+  constructor(private activatedRoute: ActivatedRoute,
+              private authService: AuthService,
+              private location: Location) {
+
+    this.authService.getCurrentUserDetails().subscribe(data => this.userDetails = data);
   }
 
-  ngOnInit(): void {
+  goBack() {
+    this.location.back();
   }
-
 }
