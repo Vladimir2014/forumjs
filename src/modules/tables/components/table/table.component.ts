@@ -5,13 +5,12 @@ import {
     Input,
     OnInit,
     QueryList,
+    TemplateRef,
     ViewChildren,
 } from '@angular/core';
 import { SBSortableHeaderDirective, SortEvent } from 'src/modules/tables/directives';
-import { Field, TableRecord } from 'src/modules/tables/models';
 import { TableDataService } from 'src/modules/tables/services';
 import { Observable, Subject } from 'rxjs';
-import { NgbDatepickerKeyboardService } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'ng-table',
@@ -21,15 +20,15 @@ import { NgbDatepickerKeyboardService } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TableComponent implements OnInit {
     @Input() records: Subject<any>;
-    @Input() fields: Array<Field>;
+    @Input() headerFields: Array<any>;
+    @Input() tableBodyTemplate: TemplateRef<any>; 
     @Input() pageSize = 5;
 
-    records$!: Observable<TableRecord[]>;
+    records$!: Observable<any[]>;
     total$!: Observable<number>;
     sortedColumn!: string;
     sortedDirection!: string;
     hideTableHead: false;
-    headerFields: any[];
 
     @ViewChildren(SBSortableHeaderDirective) headers!: QueryList<SBSortableHeaderDirective>;
 
@@ -39,11 +38,9 @@ export class TableComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.tableDataService.fields = this.fields;
         this.tableDataService.pageSize = this.pageSize;
         this.records$ = this.tableDataService.records$;
         this.total$ = this.tableDataService.total$;
-        this.headerFields = this.fields;
      
         this.records.subscribe(data => this.tableDataService.setOriginalRecords(data));
     }

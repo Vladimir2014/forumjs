@@ -1,12 +1,11 @@
 import { DecimalPipe } from '@angular/common';
 import { Injectable, PipeTransform } from '@angular/core';
 import { SortDirection } from 'src/modules/tables/directives';
-import { Field, TableRecord } from 'src/modules/tables/models';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, switchMap, tap } from 'rxjs/operators';
 
 interface SearchResult {
-    records: TableRecord[];
+    records: any[];
     total: number;
 }
 
@@ -22,7 +21,7 @@ function compare(v1: number | string, v2: number | string) {
     return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 }
 
-function sort(records: TableRecord[], column: string, direction: string): TableRecord[] {
+function sort(records: any[], column: string, direction: string): any[] {
     if (direction === '') {
         return records;
     } else {
@@ -33,30 +32,29 @@ function sort(records: TableRecord[], column: string, direction: string): TableR
     }
 }
 
-function matches(record: TableRecord, term: string, pipe: PipeTransform) {
+function matches(record: any, term: string, pipe: PipeTransform) {
     if (!term || '' === term.trim()) return true;
 
-    return !!record.fields.find(field => {
-        switch(field.type) {
-            case Number:
-                return pipe.transform(field.value).includes(term);
-            case String:
-                return field.value.includes(term);  
-            default:
-                return false;
+    return !!Object.values(record).find(value => {
+        if (typeof value === 'number') {
+            return pipe.transform(value).includes(term);
         }
+        
+        if (typeof value === 'string') {
+            return value.includes(term);  
+        }
+
+        return false;
     });
 }
 
 @Injectable({ providedIn: 'root' })
 export class TableDataService {
-    fields: Array<Field>;
-
     private records = [];
 
     private _loading$ = new BehaviorSubject<boolean>(true);
     private _search$ = new Subject<void>();
-    private _records$ = new BehaviorSubject<TableRecord[]>([]);
+    private _records$ = new BehaviorSubject<any[]>([]);
     private _total$ = new BehaviorSubject<number>(0);
 
     private _state: State = {
@@ -74,7 +72,6 @@ export class TableDataService {
                 tap(() => this._loading$.next(true)),
                 debounceTime(120),
                 switchMap(() => this._search()),
-                delay(1200),
                 tap(() => this._loading$.next(false))
             )
             .subscribe(result => {
@@ -86,33 +83,8 @@ export class TableDataService {
     }
 
     setOriginalRecords(records) {
-        this.records = this.parseOriginalRecords(records);
+        this.records = records;
         this._records$.next(this.records);
-    }
-
-    private parseOriginalRecords(records): TableRecord[] {
-        let newRecords: TableRecord[] = [];
-
-        if (this.fields) {
-            records.forEach(record => {
-
-                let recordFields: Field[] = [];
-
-                this.fields.forEach(field => {
-                    recordFields.push( { key: field.key,
-                                         name: field.name,
-                                         type: field.type,
-                                         isHtml: field.isHtml,
-                                         value: field.formatter ? field.formatter(record) : record[field.key] });
-                });
-
-                newRecords.push({ fields: recordFields });
-            });
-        }
-
-        console.log('RECORDS: ', records, 'TO:', newRecords);
-
-        return newRecords;
     }
 
     get records$() {

@@ -8,25 +8,15 @@
             <tr>
                 <th *ngFor="let headerField of headerFields"
                     scope="col" 
-                    [sbSortable]="headerField.name" 
+                    [sbSortable]="headerField" 
                     (sort)="onSort($event)">
-                    <span>{{ headerField.name }}</span>
-                    <sb-sort-icon *ngIf='sortedColumn === headerField.name' [direction]="sortedDirection"></sb-sort-icon>
+                    <span>{{ headerField }}</span>
+                    <sb-sort-icon *ngIf='sortedColumn === headerField' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let record of records$ | async">
-
-                <td *ngFor="let field of record.fields">
-                    <span *ngIf="!field.isHtml">{{ field.value }}</span>
-                    <span *ngIf="field.isHtml"  [innerHtml]="field.value | sanitizeHtml"></span>
-                    <!-- <dynamic-component *ngIf="field.isHtml"  [innerHtml]="field.value | sanitizeHtml"></dynamic-component> -->
-                    <!-- <ngb-highlight [result]="field.id" 
-                                   [term]="tableDataService.searchTerm">
-                    </ngb-highlight> -->
-                </td>
-            </tr>
+            <ng-container *ngTemplateOutlet="tableBodyTemplate; context: { records: records$ | async }"></ng-container>
         </tbody>
     </table>
     <div class="d-flex justify-content-between p-2">
@@ -37,32 +27,4 @@
             <option [ngValue]="25">25 items per page</option>
         </select>
     </div>
-
-    <!-- <div class="form-group form-inline">Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="countryService.searchTerm" /><span class="ml-3" *ngIf="countryService.loading$ | async">Loading...</span></div>
-    <table class="table ">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col" sbSortable="name" (sort)="onSort($event)"><span>Country</span><sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon></th>
-                <th scope="col" sbSortable="area" (sort)="onSort($event)"><span>Area</span><sb-sort-icon *ngIf='sortedColumn === "area"' [direction]="sortedDirection"></sb-sort-icon></th>
-                <th scope="col" sbSortable="population" (sort)="onSort($event)"><span>Population</span><sb-sort-icon *ngIf='sortedColumn === "population"' [direction]="sortedDirection"></sb-sort-icon></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let country of countries$ | async">
-                <th scope="row">{{ country.id }}</th>
-                <td><img class="mr-2" [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" style="width: 20px" /><ngb-highlight [result]="country.name" [term]="countryService.searchTerm"></ngb-highlight></td>
-                <td><ngb-highlight [result]="country.area | number" [term]="countryService.searchTerm"></ngb-highlight></td>
-                <td><ngb-highlight [result]="country.population | number" [term]="countryService.searchTerm"></ngb-highlight></td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="total$ | async" [(page)]="countryService.page" [pageSize]="countryService.pageSize"></ngb-pagination>
-        <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="countryService.pageSize">
-            <option [ngValue]="2">2 items per page</option>
-            <option [ngValue]="4">4 items per page</option>
-            <option [ngValue]="6">6 items per page</option>
-        </select>
-    </div> -->
 </form>

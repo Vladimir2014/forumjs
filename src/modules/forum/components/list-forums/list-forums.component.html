@@ -1,8 +1,24 @@
+<ng-template #tableBodyTemplateRef let-records="records">
+    <tr *ngFor="let record of records">
+        <td>
+            <a routerLink="{{ record.id }}">{{ record.name }}</a>
+        </td>
+        <td>
+            <span>{{ record.description }}</span>
+        </td>
+        <td>
+            <span>{{ record.numberOfPosts }}</span>
+        </td>
+    </tr>
+</ng-template>
+
 <div>
     <sb-dashboard-head title="Forums" [hideBreadcrumbs]="false"></sb-dashboard-head>
     <sb-card>
         <div class="card-body">
-            <ng-table [records]="forums" [fields]="fields"></ng-table>
+            <ng-table [records]="forums"
+                      [tableBodyTemplate]="tableBodyTemplateRef" 
+                      [headerFields]="header"></ng-table>
         </div>
     </sb-card>
 </div>
