@@ -11,10 +11,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './token.interceptor';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavigationModule } from 'src/modules/navigation/navigation.module';
+import { NavigationModule } from './modules/navigation/navigation.module';
+import { ApplicationModule } from './modules/application/application.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthModule } from 'src/modules/auth/auth.module';
-import { TablesModule } from 'src/modules/tables/tables.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,7 @@ import { TablesModule } from 'src/modules/tables/tables.module';
     EditorModule,
     NgbModule,
     NavigationModule,
+    ApplicationModule
   ],
   providers: [
     {

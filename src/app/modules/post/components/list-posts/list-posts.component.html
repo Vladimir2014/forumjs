@@ -1,0 +1,44 @@
+<ng-template #tableBodyTemplateRef let-records="posts">
+    <tr *ngFor="let post of records">
+        <td><a routerLink="{{ post.postId }}">{{ post.description }}</a></td>
+        <td>
+            <span>{{ post.forumName }}</span>
+        </td>
+        <td>
+            <span>{{ post.postName }}</span>
+        </td>
+        <td>
+            <span>{{ post.url }}</span>
+        </td>
+        <td>
+            <span>{{ post.userName }}</span>
+        </td>
+        <td>
+            <span>{{ post.commnetCount }}</span>
+        </td>
+        <td>
+            <span>{{ post.duration }}</span>
+        </td>
+        <td>
+            <span>{{ post.voteCount }}</span>
+        </td>
+        <td>
+            <span>{{ post.upVote }}</span>
+        </td>
+        <td>
+            <span>{{ post.downVote }}</span>
+        </td>    
+    </tr>
+</ng-template>
+
+<br/>
+<a routerLink="add">add new post</a>
+
+<sb-card>
+    <div class="card-body">
+        <ng-table [records]="posts"
+                  [tableBodyTemplate]="tableBodyTemplateRef"
+                  [headerFields]="header"></ng-table>
+    </div>
+</sb-card>
+

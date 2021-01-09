@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <hr />
+        <div class="col-md-12">
+            <h2>{{forum.name}}</h2>
+            <div>
+                <p class="forum-text" [innerHtml]="forum.description"></p>
+            </div>
+
+            <ul>
+                <li *ngFor="let post of forum.posts">
+                    <a routerLink="posts/{{post.id}}">{{post.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

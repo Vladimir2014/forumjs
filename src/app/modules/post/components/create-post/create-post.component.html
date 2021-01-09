@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!forum" style="width: 100%;">
+      <div class="not_found"> 
+        No Forums found
+      </div>
+      <div>
+        You need at least one forum to create a post<br/>
+        You can  <a aria-label="Home" class="logo" routerLink="/forum/add">create a forum</a> and then add a new post to it
+      </div>
+    </div>
+
+    <div *ngIf="forum" class="create-post-container col-md-12">
+      <form class="post-form" [formGroup]="createPostForm" (ngSubmit)="createPost()">
+        <div class="form-group">
+          <div class="create-post-heading">Create Post</div>
+          <hr />
+          <input type="text" [formControlName]="'postName'" class="form-control" style="margin-top: 5px" placeholder="Title">
+
+          <input type="text" class="form-control" [formControlName]="'url'" style="margin-top: 5px" placeholder="URL">
+
+          <textarea class="form-control" 
+                    [formControlName]="'description'" 
+                    style="margin-top: 5px" 
+                    placeholder="Description"></textarea>
+
+          <!-- <editor [formControlName]="'description'" [init]="{
+                      height: 500,
+                      menubar: false,
+                      plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                      ],
+                      toolbar:
+                        'undo redo | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                    }"></editor> -->
+          <span>
+            <div style="margin-top: 5px" class="float-right">
+              <button (click)="discardPost()" class="btnDiscard">Discard</button>
+              <button class="btnCreatePost">Post</button>
+            </div>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
